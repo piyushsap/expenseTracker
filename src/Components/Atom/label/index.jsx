@@ -1,5 +1,5 @@
-export function Formlabel({label}){
+export function Formlabel({label, name}){
     return <>
-        <label htmlFor={label}>{label}</label>
+        <label htmlFor={name}>{label}</label>
     </>
 }

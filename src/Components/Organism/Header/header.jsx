@@ -1,11 +1,9 @@
-import { Link } from "react-router-dom";
-
+import './header.scss'
 export function Header(){
     return <>
-        <nav>
-            <ul>
-                <li><Link/></li>
-            </ul>
-        </nav>
+        <header>
+            <div className="logo">logo</div>
+            <div className="profile">profile</div>
+        </header>
     </>
 }

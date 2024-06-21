@@ -24,6 +24,7 @@ export function Register() {
     {
       label: "Username",
       name: "username",
+      inputType: "input",
       type: "text",
       placeholder: "Username",
       value: register.username,
@@ -31,6 +32,7 @@ export function Register() {
     {
       label: "Email",
       name: "email",
+      inputType: "input",
       type: "text",
       placeholder: "Enter Your email",
       value: register.password,
@@ -38,6 +40,7 @@ export function Register() {
     {
       label: "Password",
       name: "password",
+      inputType: "input",
       type: "password",
       placeholder: "Password",
       value: register.password,
@@ -45,6 +48,7 @@ export function Register() {
     {
       label: "Confirm Password",
       name: "cpassword",
+      inputType: "input",
       type: "password",
       placeholder: "Confirm Password",
       value: register.password,
