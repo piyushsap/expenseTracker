@@ -7,9 +7,9 @@ import { Dashboard } from "./pages/Dashboard/dashboard";
 import { Login } from "./pages/Login/login";
 import { Register } from "./pages/Register/register";
 import { Expense } from "./pages/Expense/expense";
-import { AddExpense } from "./pages/AddExpense/addExpense";
 import { Sidebar } from "./Components/Organism/Sidebar/sidebar";
 import { Layout } from "./Components/Organism/Layout/layout";
+import { AddExpense } from "./pages/AddExpense/addExpense";
 
 function App() {
   return (

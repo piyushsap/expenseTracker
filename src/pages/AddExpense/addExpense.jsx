@@ -1,82 +1,106 @@
 import { useState } from "react";
 import { Form } from "../../Components/Organism/Form";
 import { useParams } from "react-router-dom";
-import cosntants from "../../Constants/constants";
-import { Value } from "sass";
+import constants from "../../Constants/constants";
 
 export function AddExpense() {
   const { id } = useParams();
-  const [expense, setExpense] = useState([
+  const [expenseForms, setExpenseForms] = useState([
     {
-      budgetName: "",
-      budgetExpenses: [
-        {
-          frequency: "",
-          category: "",
-          amount: "",
-        },
-      ],
+      frequency: "",
+      category: "",
+      amount: "",
     },
   ]);
+
   const handleSubmit = (e) => {
-    console.log(e);
-  };
-  const handleChange = (e) => {
-    console.log(e);
-  };
-  
-  const handleAddMore = (e) => {
-    console.log(e);
+    e.preventDefault();
+    console.log(expenseForms);
   };
 
-  const expenseForm = [
+  const handleChange = (index, name, value) => {
+    console.log(index, name, value, 1111);
+    const newExpenseForms = [...expenseForms];
+    newExpenseForms[index][name] = value;
+    setExpenseForms(newExpenseForms);
+  };
+
+  const handleAddMore = () => {
+    setExpenseForms([
+      ...expenseForms,
+      { frequency: "", category: "", amount: "" },
+    ]);
+    console.log(expenseForms, 111);
+  };
+
+  const handleRemove = (index) => {
+    const newExpenseForms = expenseForms.filter((_, i) => i !== index);
+    setExpenseForms(newExpenseForms);
+  };
+
+  const expenseFormFields = [
     {
       label: "frequency",
-      name: "Frequency",
+      name: "frequency",
       type: "text",
       inputType: "select",
       placeholder: "Frequency",
-      option: cosntants.Frequency,
+      option: constants.Frequency,
       value: "",
     },
     {
       label: "category",
-      name: "Category",
+      name: "category",
       type: "text",
       inputType: "select",
-      placeholder: "Password",
-      option: cosntants.Categories,
+      placeholder: "Category",
+      option: constants.Categories,
       value: "",
     },
     {
       label: "amount",
-      name: "Amount",
+      name: "amount",
       type: "text",
       inputType: "input",
       placeholder: "Expense Amount",
       value: "",
     },
   ];
+
   return (
-    <>
-      <div className="content">
-        <div className="content-header">
-          <h1>Add Expense {id}</h1>
-        </div>
-        <div className="content-main">
-          <form onSubmit={handleSubmit}>
-            <div className="form-inline">
-              <Form formFields={expenseForm} handleChange={handleChange} />
+    <div className="content">
+      <div className="content-header">
+        <h1>Add Expense {id}</h1>
+      </div>
+      <div className="content-main">
+        <form onSubmit={handleSubmit}>
+          {expenseForms.map((expense, index) => (
+            <div key={index} className="form-inline">
+              <Form
+                formFields={expenseFormFields.map((field) => ({
+                  ...field,
+                  value: expense[field.name],
+                  rowIndex: index,
+                  onChange: handleChange,
+                }))}
+              />
               <div className="formgroup inline-button">
-                <button>Add more</button>
+                <button type="button" onClick={handleAddMore}>
+                  +
+                </button>
+                {expenseForms.length > 1 && (
+                  <button type="button" onClick={() => handleRemove(index)}>
+                    -
+                  </button>
+                )}
               </div>
             </div>
-            <div className="formgroup side-by-side">
-              <button>Add Expense</button>
-            </div>
-          </form>
-        </div>
+          ))}
+          <div className="formgroup side-by-side">
+            <button type="submit">Add Expense</button>
+          </div>
+        </form>
       </div>
-    </>
+    </div>
   );
 }

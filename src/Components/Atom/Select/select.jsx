@@ -1,17 +1,15 @@
-import React, { useEffect } from "react";
-
-export function SelectInput({ name, onChange, value, options }) {
-  useEffect(() => {
-    options.forEach((item) => {
-      console.log(item);
-    });
-  }, [options]);
-
+export function SelectInput({ rowIndex, name, onChange, value, options }) {
   return (
     <select
       name={name}
       value={value}
-      onChange={(e) => onChange(name, e.target.value)}
+      onChange={(e) => {
+        if (rowIndex !== undefined && rowIndex !== null) {
+          onChange(rowIndex, name, e.target.value);
+        } else {
+          onChange(name, e.target.value);
+        }
+      }}
     >
       {options.map((item, index) =>
         item?.subcategories?.length > 0 ? (

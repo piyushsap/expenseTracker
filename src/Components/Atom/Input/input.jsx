@@ -1,4 +1,5 @@
-export function Input({ label, name, type, placeholder, onChange, value }) {
+export function Input({ rowIndex, label, name, type, placeholder, onChange, value }) {
+  // console.log(rowIndex, label, name, type, placeholder, onChange, value)
   return (
     <>
       <input
@@ -6,7 +7,13 @@ export function Input({ label, name, type, placeholder, onChange, value }) {
         type={type}
         placeholder={placeholder}
         value={value}
-        onChange={(e) => onChange(name, e.target.value)}  
+        onChange={(e) => {
+          if (rowIndex !== undefined && rowIndex !== null) {
+            onChange(rowIndex, name, e.target.value);
+          } else {
+            onChange(name, e.target.value);
+          }
+        }}
       ></input>
     </>
   );

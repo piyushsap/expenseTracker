@@ -2,8 +2,7 @@ import { Input } from "../../Atom/Input/input";
 import { SelectInput } from "../../Atom/Select/select";
 import { Formlabel } from "../../Atom/label";
 
-export function FormGroup({fields}) {
-  console.log(fields,1111)
+export function FormGroup({ fields, handleChange }) {
   return (
     <>
       <div className="formgroup">
@@ -12,9 +11,10 @@ export function FormGroup({fields}) {
           <Input
             label={fields.label}
             name={fields.name}
-            onChange={fields.onChange}
+            onChange={fields.onChange ? fields.onChange : handleChange}
             value={fields.value}
             type={fields.type}
+            rowIndex={fields.rowIndex}
             placeholder={fields.placeholder}
           />
         ) : fields.inputType === "select" ? (
@@ -22,7 +22,8 @@ export function FormGroup({fields}) {
             name={fields.name}
             options={fields.option}
             value={fields.value}
-            onChange={fields.onChange}
+            rowIndex={fields.rowIndex}
+            onChange={fields.onChange ? fields.onChange : handleChange}
           />
         ) : (
           <textArea />

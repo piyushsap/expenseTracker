@@ -4,7 +4,7 @@ export function Form({ formFields, handleChange }) {
   return (
     <>
       {formFields.map((item) => (
-        <FormGroup key={item.name} fields={item} />
+        <FormGroup key={item.name} handleChange={handleChange} fields={item} />
       ))}
     </>
   );
