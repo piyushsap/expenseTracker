@@ -7,6 +7,7 @@ export function Sidebar() {
         <nav>
           <ul>
             <li><Link to='/home'>Dashboard</Link></li>
+            <li><Link to='/home/budget'>Budget</Link></li>
             <li><Link to='/home/expense'>Expense</Link></li>
             <li><Link to='/income'>Income</Link></li>
             <li><Link to='/reports'>Reports</Link></li>

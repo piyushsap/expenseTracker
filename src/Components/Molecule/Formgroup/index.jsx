@@ -19,6 +19,7 @@ export function FormGroup({ fields, handleChange }) {
           />
         ) : fields.inputType === "select" ? (
           <SelectInput
+            placeholder={fields.placeholder}
             name={fields.name}
             options={fields.option}
             value={fields.value}

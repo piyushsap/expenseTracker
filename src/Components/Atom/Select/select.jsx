@@ -1,4 +1,4 @@
-export function SelectInput({ rowIndex, name, onChange, value, options }) {
+export function SelectInput({ placeholder, rowIndex, name, onChange, value, options }) {
   return (
     <select
       name={name}
@@ -11,6 +11,7 @@ export function SelectInput({ rowIndex, name, onChange, value, options }) {
         }
       }}
     >
+      <option>{placeholder}</option>
       {options.map((item, index) =>
         item?.subcategories?.length > 0 ? (
           <optgroup key={index} label={item.name}>

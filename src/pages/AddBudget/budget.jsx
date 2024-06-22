@@ -3,7 +3,7 @@ import { Form } from "../../Components/Organism/Form";
 import { useParams } from "react-router-dom";
 import constants from "../../Constants/constants";
 
-export function AddExpense() {
+export function AddBudget() {
   const { id } = useParams();
   const [selectedBudget, setSelectedBudget] = useState("");
   const [expenseForms, setExpenseForms] = useState([
@@ -77,9 +77,9 @@ export function AddExpense() {
     {
       label: "Budget",
       name: "budget",
-      type: "select",
-      inputType: "select",
-      placeholder: "Select Budget",
+      type: "text",
+      inputType: "input",
+      placeholder: "Budget Name",
       value: selectedBudget,
       option: constants.Frequency,
     },

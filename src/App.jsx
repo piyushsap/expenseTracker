@@ -10,6 +10,8 @@ import { Expense } from "./pages/Expense/expense";
 import { Sidebar } from "./Components/Organism/Sidebar/sidebar";
 import { Layout } from "./Components/Organism/Layout/layout";
 import { AddExpense } from "./pages/AddExpense/addExpense";
+import { AddBudget } from "./pages/AddBudget/budget";
+import { Budget } from "./pages/Budget/budget";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           <Route path="expense" element={<Expense />} />
           <Route path="expense/add" element={<AddExpense />} />
           <Route path="expense/:id" element={<AddExpense />} />
+          <Route path="budget" element={<Budget />} />
+          <Route path="budget/add" element={<AddBudget />} />
         </Route>
         <Route path="/income">
           <Route index element={<Expense />} />
