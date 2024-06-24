@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form } from "../../Components/Organism/Form";
 import { useParams } from "react-router-dom";
-import constants from "../../Constants/constants";
+import constants from "../../Utils/Constants/constants";
 
 export function AddExpense() {
   const { id } = useParams();

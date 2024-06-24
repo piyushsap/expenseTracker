@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form } from "../../Components/Organism/Form";
 import { useParams } from "react-router-dom";
-import constants from "../../Constants/constants";
+import constants from "../../Utils/Constants/constants";
 
 export function AddBudget() {
   const { id } = useParams();
@@ -16,7 +16,7 @@ export function AddBudget() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(expenseForms);
+    console.log(expenseForms, selectedBudget);
   };
 
   const handleBudgetChange = (name, value) => {
@@ -78,7 +78,7 @@ export function AddBudget() {
       label: "Budget",
       name: "budget",
       type: "text",
-      inputType: "input",
+      inputType: id ? "select" : "input",
       placeholder: "Budget Name",
       value: selectedBudget,
       option: constants.Frequency,

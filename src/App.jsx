@@ -12,24 +12,30 @@ import { Layout } from "./Components/Organism/Layout/layout";
 import { AddExpense } from "./pages/AddExpense/addExpense";
 import { AddBudget } from "./pages/AddBudget/budget";
 import { Budget } from "./pages/Budget/budget";
+import ProtectedRoute from "./hoc/Protected";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/home" element={<Layout />}>
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<Dashboard />} />
           <Route path="expense" element={<Expense />} />
           <Route path="expense/add" element={<AddExpense />} />
           <Route path="expense/:id" element={<AddExpense />} />
           <Route path="budget" element={<Budget />} />
           <Route path="budget/add" element={<AddBudget />} />
-        </Route>
-        <Route path="/income">
-          <Route index element={<Expense />} />
+          <Route path="budget/:id" element={<AddBudget />} />
           <Route path="income" element={<Expense />} />
-          <Route path="add" element={<AddExpense />} />
-          <Route path=":id" element={<AddExpense />} />
+          <Route path="income/add" element={<AddExpense />} />
+          <Route path="income/:id" element={<AddExpense />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

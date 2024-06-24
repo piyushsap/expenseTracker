@@ -1,8 +1,13 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Form } from "../../Components/Organism/Form";
+import axios from "axios";
+import useLocalStorage from "../../Utils/hooks/UseLocalStorage";
 
 export function Login() {
+  const [user, setUser] = useLocalStorage('user', {userId:'', token:''});
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
   const [login, setLogin] = useState({
     username: "",
     password: "",
@@ -14,9 +19,23 @@ export function Login() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(login);
+    try {
+      const payload = { Username: login.username, Password: login.password };
+      const authorize = await axios.post(
+        `${import.meta.env.VITE_AUTH_URL}/login`,
+        payload
+      );
+      setUser({
+        userId: authorize.data.userId,
+        token: authorize.data.token,
+      });
+      navigate("/home");
+    } catch (error) {
+      console.log(error);
+      setError(error.response.data.message);
+    }
   };
   const loginForm = [
     {
@@ -40,6 +59,7 @@ export function Login() {
     <>
       <div className="form-wrap">
         <h1>Login</h1>
+        {error && <p>{error}</p>}
         <form onSubmit={handleSubmit}>
           <Form formFields={loginForm} handleChange={handleChange} />
           <div className="formgroup side-by-side">
