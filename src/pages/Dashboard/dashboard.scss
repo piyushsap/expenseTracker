@@ -1,8 +1,20 @@
 .wrapper {
     display: flex;
     height: 100%;
+    flex: 1 1 auto;
     .content {
         padding: 10px 20px;
         flex: 1 1 auto;
+        &-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            a {
+                background-color: blue;
+                color: #fff;
+                padding: 5px 10px;
+                border-radius: 3px;
+            }
+        }
     }
 }

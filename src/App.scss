@@ -83,3 +83,20 @@ form {
     }
   }
 }
+table {
+  width: 100%;
+  th,td {
+    padding: 10px 15px;
+    border: 1px solid $border-color;
+  }
+  td {
+    a, button {
+      background-color: transparent;
+      border: 0;
+      color: blue;
+      margin-right: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  }
+}

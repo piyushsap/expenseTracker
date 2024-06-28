@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 const useLocalStorage = (key, initialValue) => {
-    console.log(key, initialValue,222);
   // Get the value from localStorage, or use the initial value if none is found
   const [storedValue, setStoredValue] = useState(() => {
     try {

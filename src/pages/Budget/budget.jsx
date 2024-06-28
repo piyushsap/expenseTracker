@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import useLocalStorage from "../../Utils/hooks/UseLocalStorage";
-
 export function Budget() {
   const [user, setUser] = useLocalStorage("user");
   const [budget, setBudget] = useState([]);
@@ -26,10 +25,10 @@ export function Budget() {
     fetchData();
     console.log(budget, 111);
   }, []);
-  const deleteBudget = async () => {
+  const deleteBudget = async (id) => {
     try {
-      const getBudget = await axios.get(
-        `${import.meta.env.VITE_BUDGET_URL}/deletebudget`,
+      const deleteBudget = await axios.get(
+        `${import.meta.env.VITE_BUDGET_URL}/deletebudget/${id}`,
         {
           headers: {
             user: user.userId,
@@ -37,6 +36,7 @@ export function Budget() {
           },
         }
       );
+      console.log(deleteBudget,3333)
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +57,7 @@ export function Budget() {
         </div>
         <div className="content-main">
           {budget.length > 0 ? (
-            <table>
+            <table cellPadding={0} cellSpacing={0}>
               <thead>
                 <tr>
                   <th>Budget Name</th>

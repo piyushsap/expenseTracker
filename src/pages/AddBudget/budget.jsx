@@ -1,21 +1,84 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form } from "../../Components/Organism/Form";
 import { useParams } from "react-router-dom";
 import constants from "../../Utils/Constants/constants";
+import axios from "axios";
+import useLocalStorage from "../../Utils/hooks/UseLocalStorage";
 
 export function AddBudget() {
+  const [user, setUser] = useLocalStorage("user");
   const { id } = useParams();
   const [selectedBudget, setSelectedBudget] = useState("");
   const [expenseForms, setExpenseForms] = useState([
     {
-      frequency: "",
-      category: "",
-      amount: "",
+      Frequency: "",
+      Category: "",
+      Amount: "",
     },
   ]);
-
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        if (id) {
+          const getBudget = await axios.get(
+            `${import.meta.env.VITE_BUDGET_URL}/getbudget/${id}`,
+            {
+              headers: {
+                user: user.userId,
+                "x-auth-token": user.token,
+              },
+            }
+          );
+          console.log(getBudget);
+          setSelectedBudget(getBudget.data[0].BudgetName);
+          setExpenseForms(getBudget.data[0].BudgetExpense);
+        } else {
+          setSelectedBudget("");
+          setExpenseForms([
+            {
+              Frequency: "",
+              Category: "",
+              Amount: "",
+            },
+          ]);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+  }, [id]);
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const url = id
+        ? `${import.meta.env.VITE_BUDGET_URL}/updateBudget/${id}`
+        : `${import.meta.env.VITE_BUDGET_URL}/create`;
+      const BudgetName = selectedBudget;
+      const BudgetExpense = expenseForms;
+      const createBudget = await axios.post(
+        url,
+        { BudgetName, BudgetExpense },
+        {
+          headers: {
+            user: user.userId,
+            "x-auth-token": user.token,
+          },
+        }
+      );
+      if (createBudget.status === 200 && !id) {
+        setSelectedBudget("");
+        setExpenseForms([
+          {
+            Frequency: "",
+            Category: "",
+            Amount: "",
+          },
+        ]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
     console.log(expenseForms, selectedBudget);
   };
 
@@ -35,7 +98,7 @@ export function AddBudget() {
   const handleAddMore = () => {
     setExpenseForms([
       ...expenseForms,
-      { frequency: "", category: "", amount: "" },
+      { Frequency: "", Category: "", Amount: "" },
     ]);
     console.log(expenseForms, 111);
   };
@@ -47,30 +110,27 @@ export function AddBudget() {
 
   const expenseFormFields = [
     {
-      label: "frequency",
-      name: "frequency",
+      label: "Frequency",
+      name: "Frequency",
       type: "text",
       inputType: "select",
       placeholder: "Select Frequency",
       option: constants.Frequency,
-      value: "",
     },
     {
-      label: "category",
-      name: "category",
+      label: "Category",
+      name: "Category",
       type: "text",
       inputType: "select",
       placeholder: "Select Category",
       option: constants.Categories,
-      value: "",
     },
     {
-      label: "amount",
-      name: "amount",
+      label: "Amount",
+      name: "Amount",
       type: "text",
       inputType: "input",
       placeholder: "Expense Amount",
-      value: "",
     },
   ];
   const budgetField = [
@@ -78,7 +138,7 @@ export function AddBudget() {
       label: "Budget",
       name: "budget",
       type: "text",
-      inputType: id ? "select" : "input",
+      inputType: "input",
       placeholder: "Budget Name",
       value: selectedBudget,
       option: constants.Frequency,
@@ -88,7 +148,7 @@ export function AddBudget() {
   return (
     <div className="content">
       <div className="content-header">
-        <h1>Add Expense {id}</h1>
+        <h1>{id ? 'Edit': 'Add'} Expense</h1>
       </div>
       <div className="content-main">
         <form onSubmit={handleSubmit}>
@@ -116,7 +176,7 @@ export function AddBudget() {
             </div>
           ))}
           <div className="formgroup side-by-side">
-            <button type="submit">Add Expense</button>
+            <button type="submit">{id ? 'Edit': 'Add'} Expense</button>
           </div>
         </form>
       </div>
