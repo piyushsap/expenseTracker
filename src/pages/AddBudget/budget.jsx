@@ -30,8 +30,8 @@ export function AddBudget() {
             }
           );
           console.log(getBudget);
-          setSelectedBudget(getBudget.data[0].BudgetName);
-          setExpenseForms(getBudget.data[0].BudgetExpense);
+          setSelectedBudget(getBudget.data.BudgetName);
+          setExpenseForms(getBudget.data.BudgetExpense);
         } else {
           setSelectedBudget("");
           setExpenseForms([
